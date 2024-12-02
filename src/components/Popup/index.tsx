@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { useState } from "react";
-import axios from "axios";
+import axios from "../../utils/axios";
 import { RSAUtility } from "../../utils/RSAUtility";
 
 type Props = {
@@ -31,15 +31,10 @@ export function Popup({ close, popupState }: Props) {
     setSuccess(null);
     setLoading(true);
     try {
-      const endpoint =
-        popupState === "withdraw"
-          ? "http://localhost:3000/api/withdraw"
-          : "http://localhost:3000/api/deposit";
+      const endpoint = popupState === "withdraw" ? "/withdraw" : "/deposit";
 
       // Fetch the public key from the server
-      const publicKeyResponse = await axios.get(
-        "http://localhost:3000/api/public-key"
-      );
+      const publicKeyResponse = await axios.get("/public-key");
       const publicKey = publicKeyResponse.data.public_key;
 
       // Encrypt the amount using RSAUtility

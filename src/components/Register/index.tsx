@@ -16,7 +16,7 @@ import {
 } from "@mui/icons-material";
 import bgImage from "../../assets/bg.png";
 import { Link as RouterLink, useNavigate } from "react-router";
-import axios from "axios";
+import axios from "../../utils/axios";
 
 interface FormData {
   firstName: string;
@@ -54,11 +54,8 @@ export function Register() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/signup",
-        payload
-      );
-      const data = response.data;
+      const response = await axios.post("/signup", JSON.stringify(payload));
+      const data = JSON.parse(response.data);
 
       if (data.success) {
         // Save token to localStorage

@@ -16,7 +16,7 @@ import {
 } from "@mui/icons-material";
 import bgImage from "../../assets/bg.png";
 import { Link as RouterLink, useNavigate } from "react-router";
-import axios from "axios";
+import axios from "../../utils/axios";
 
 interface LoginData {
   userName: string;
@@ -48,7 +48,7 @@ export function Login() {
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/api/login", payload);
+      const response = await axios.post("/login", payload);
       const data = response.data;
 
       if (data.success) {

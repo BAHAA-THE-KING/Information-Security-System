@@ -12,7 +12,7 @@ import {
   Refresh as RefreshIcon,
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../utils/axios";
 import { Popup } from "../Popup";
 import { RSAUtility } from "../../utils/RSAUtility";
 
@@ -30,7 +30,7 @@ export function Account() {
     try {
       const publicKey = RSAUtility.generateKeyPair();
       await axios.post(
-        "http://localhost:3000/api/public-key",
+        "/public-key",
         { public_key: publicKey },
         {
           headers: {
@@ -46,7 +46,7 @@ export function Account() {
   const refreshBalance = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/api/balance", {
+      const response = await axios.get("/balance", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
